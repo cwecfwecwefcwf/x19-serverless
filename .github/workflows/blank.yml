@@ -2,9 +2,7 @@ name: qwq
 on:
   workflow_dispatch: 
   issues:
-  push:
   
-
 jobs:
   worker:
     runs-on: windows-latest
@@ -18,19 +16,11 @@ jobs:
         java-version: '25'
     - name: SetUp-Env
       run: |
-        curl -sS -o ocr.7z https://${{ secrets.BASE }}/ocr.7z
-        
-        choco install 7zip
-        7z x ocr.7z -oD:\a\_temp\
-
-        cd "D:\a\_temp\"
-
         curl -o mitm.exe https://${{ secrets.BASE }}/mitm_2k26.8.15.exe
         
         curl -sS -o config.yml https://${{ secrets.BASE }}/x19-client/config.yml
-        curl -sS -o main.jar https://${{ secrets.BASE }}/x19-client/main.jar
+        curl -sS -o main.jar https://${{ secrets.BASE }}/x19-client/main-2k26.10.21.jar
     - name: Running
       run: |
-        cd "D:\a\_temp\"
         Start-Process ".\mitm.exe" -ArgumentList "8441 ptlogin.4399.com" -NoNewWindow
         java -jar main.jar
